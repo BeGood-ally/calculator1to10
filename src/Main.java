@@ -9,8 +9,14 @@ public class Main {
         Matcher arab2 = arab1.matcher(expression_gapless);
         if (arab2.matches()) {
             String[] arr_arab_digit = expression_gapless.split("([\\+\\-\\*\\/])");
-            int arab_digit_int1 = Integer.parseInt(arr_arab_digit[0]);
-            int arab_digit_int2 = Integer.parseInt(arr_arab_digit[1]);
+            int arab_digit_int1 = 0;
+            int arab_digit_int2 = 0;
+            try {
+                arab_digit_int1 = Integer.parseInt(arr_arab_digit[0]);
+                arab_digit_int2 = Integer.parseInt(arr_arab_digit[1]);
+            } catch (NumberFormatException e) {
+                throw new Exception("ввод арабских цифр за пределами диапазона калькулятора");
+            }
             Pattern path1 = Pattern.compile("([\\+\\-\\*\\/])");
             Matcher operator1 = path1.matcher(expression_gapless);
             operator1.find();
@@ -31,7 +37,7 @@ public class Main {
                         answer = Math.round(arab_digit_int1 / arab_digit_int2);
                         break;
                 }
-                return "ответ: " + Integer.toString(answer);
+                return "ввод: " + expression_gapless + "\nответ: " + Integer.toString(answer);
             }
             else throw new Exception("ввод арабских цифр за пределами диапазона калькулятора");
         }
